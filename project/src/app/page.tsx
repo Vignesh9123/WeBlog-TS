@@ -69,9 +69,10 @@ export default function AuroraBackgroundDemo() {
         <button className="w-40 h-10 rounded-xl bg-black border dark:border-white border-transparent text-white text-sm">
           Know More
         </button></Link>
-        <button className="w-40 h-10 rounded-xl bg-white text-black border border-black  text-sm">
+       <Link href={"/user/register"}> <button className="w-40 h-10 rounded-xl bg-white text-black border border-black  text-sm">
           Signup
         </button>
+        </Link>
       </div>
     </div>
 

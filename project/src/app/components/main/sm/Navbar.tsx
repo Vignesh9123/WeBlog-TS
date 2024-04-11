@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { FloatingNav } from "../ui/floating-navbar";
+import { FloatingNav } from "../../ui/register-sm/floating-navbar";
 import { usePathname } from "next/navigation";
 export function FloatingNavbar() {
   const pathname = usePathname()
@@ -19,10 +19,9 @@ export function FloatingNavbar() {
        
     },
   ];
-if(pathname=="/user/register")
-  return (<></>)
+
   return (
-    <div className="relative  w-full">
+    <div className={`relative  w-full ${pathname=="/user/register"?"block md:hidden":""}`}>
       <FloatingNav navItems={navItems} />
     </div>
   );

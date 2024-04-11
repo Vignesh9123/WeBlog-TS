@@ -5,6 +5,7 @@ import { FloatingNavbar } from "./components/main/Navbar";
 import Footer from "./components/main/Footer";
 
 
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -20,7 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-      <FloatingNavbar/>
+     <FloatingNavbar/>
         {children}
         <Footer/>
 

@@ -7,6 +7,30 @@
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
 }
+*{
+  margin: 0;
+  padding: 0;
+}
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f128;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #424242;
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
 
 @media (prefers-color-scheme: dark) {
   :root {
@@ -29,5 +53,17 @@ body {
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+}
+
+.sidebarnav{
+  animation: uptodown 0.2s linear;
+}
+@keyframes uptodown {
+  from{
+    transform: translateY(-10%);
+  }
+  to{
+    transform: translateY(0%);
   }
 }
