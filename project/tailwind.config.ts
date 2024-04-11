@@ -12,7 +12,12 @@ const config: Config = {
   theme: {
     extend: {
       animation: {
-        aurora: "aurora 60s linear infinite",
+        'aurora': "aurora 60s linear infinite",
+        'text-slide': 'text-slide 12.5s cubic-bezier(0.83, 0, 0.17, 1) infinite',
+
+      },
+      boxShadow: {
+        input: `0px 2px 3px -1px rgba(0,0,0,0.1), 0px 1px 0px 0px rgba(25,28,33,0.02), 0px 0px 0px 1px rgba(25,28,33,0.08)`,
       },
       keyframes: {
         aurora: {
@@ -23,6 +28,26 @@ const config: Config = {
             backgroundPosition: "350% 50%, 350% 50%",
           },
         },
+        'text-slide': {
+          '0%, 16%': {
+              transform: 'translateY(0%)',
+          },
+          '20%, 36%': {
+              transform: 'translateY(-16.66%)',
+          },
+          '40%, 56%': {
+              transform: 'translateY(-33.33%)',
+          },
+          '60%, 76%': {
+              transform: 'translateY(-50%)',
+          },
+          '80%, 96%': {
+              transform: 'translateY(-66.66%)',
+          },
+          '100%': {
+              transform: 'translateY(-83.33%)',
+          },
+      },                    
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",

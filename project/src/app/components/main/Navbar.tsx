@@ -8,12 +8,12 @@ export function FloatingNavbar() {
       link: "/",
     },
     {
-      name: "About",
-      link: "/about",
+      name: "Blogs",
+      link: "/blogs",
     },
     {
-      name: "Contact",
-      link: "/contact",
+      name: "Login",
+      link: "/user/login",
        
     },
   ];
