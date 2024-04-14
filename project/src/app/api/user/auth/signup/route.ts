@@ -8,7 +8,6 @@ export async function POST(request:any){
      const reqBody = await request.json()
      const {username,email,password} = reqBody
      const existingUser =await User.findOne({email:email.toLowerCase()})
-     //TODO:Lowercase email
      if(existingUser){
         return NextResponse.json({success:false,message:"User already exists"},{status:400})
      }

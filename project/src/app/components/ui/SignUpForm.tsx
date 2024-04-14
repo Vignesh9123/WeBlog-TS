@@ -38,10 +38,10 @@ export function SignUpForm() {
       setLoading(false)
       return
     }
-     const response = await axios.post("/api/user/signup",data)
+     const response = await axios.post("/api/user/auth/signup",data)
      setLoading(false)
      toast.success(response.data.message) 
-     router.push("/user/signin")
+     location.reload()
     } catch (error:any) {
       setLoading(false)
       toast.error(error.response.data.message || "An error occured please try again")
