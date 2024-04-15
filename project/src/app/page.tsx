@@ -6,8 +6,15 @@ import { AuroraBackground } from "./components/ui/aurora-background";
 import { TypewriterEffectSmooth } from "./components/ui/typewriter-effect";
 import ScrollButton from "./components/main/scrolltotopbutton";
 import Link from "next/link";
+import { getUserState } from "@/helpers/getUserfromToken";
+import signOutHandler from "@/helpers/signOutHandler";
+import { Toaster } from "react-hot-toast";
 export default function AuroraBackgroundDemo() {
   const [isVisible, setIsVisible] = useState(false);
+  const [signedIn, setSignedIn] = useState(false)
+  const [loading, setLoading] = useState(false)
+
+
   useEffect(() => {
    
     // Function to handle scroll event
@@ -20,6 +27,11 @@ export default function AuroraBackgroundDemo() {
       }
     };
 
+    const userState = async()=>{
+        let state = await getUserState()
+        setSignedIn(state)
+    }
+    userState()
     // Add event listener when component mounts
     window.addEventListener('scroll', handleScroll);
 
@@ -56,6 +68,7 @@ export default function AuroraBackgroundDemo() {
         }}
         className="relative flex flex-col gap-4 items-center justify-center px-4"
       >
+      <Toaster/>
     <div className="flex flex-col items-center justify-center h-[25rem]  ">
       <p className="text-neutral-600 dark:text-neutral-200 text-xs sm:text-base  ">
       Explore insightful articles written by our talented writers
@@ -65,14 +78,17 @@ export default function AuroraBackgroundDemo() {
       The best part is you can write great articles too.
       </p>
       <div className="mt-5 flex flex-col md:flex-row space-y-4 md:space-y-0 space-x-0 md:space-x-4">
-        <Link href={"/#content"}>
+        {signedIn?<button onClick={signOutHandler} className="w-40 h-10 rounded-xl bg-white text-black border border-black  text-sm">
+          Sign out
+        </button>:<><Link href={"/#content"}>
         <button className="w-40 h-10 rounded-xl bg-black border dark:border-white border-transparent text-white text-sm">
           Know More
         </button></Link>
        <Link href={"/user/register"}> <button className="w-40 h-10 rounded-xl bg-white text-black border border-black  text-sm">
           Signup
         </button>
-        </Link>
+        </Link></>
+        }
       </div>
     </div>
 
