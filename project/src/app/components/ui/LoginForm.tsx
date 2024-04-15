@@ -32,7 +32,7 @@ export function LoginForm() {
     // Handle form submission here (e.g., send data to server)
     console.log(data);
      try {
-      const response = await axios.post("/api/user/signin",data)
+      const response = await axios.post("/api/user/auth/login",data)
       setLoading(false)
       toast.success(response.data.message)
       // setLoggedIn(true)
