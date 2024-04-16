@@ -11,7 +11,7 @@ import {
 
 export function BentoGridSecondDemo() {
   return (
-    <BentoGrid className="max-w-7xl m-5 mx-auto md:auto-rows-[20rem]">
+    <BentoGrid className="max-w-[95vw] m-5 mx-auto md:auto-rows-[20rem]">
       {items.map((item, i) => (
         <BentoGridItem
           key={i}
@@ -39,14 +39,17 @@ const items = [
   {
     title: "Express Yourself",
     description: "Share your thoughts, ideas, and passions with the world. Your voice matters.",
-    header: <div className="max-h-[190px] overflow-hidden"><img className="mx-auto" src="https://via.placeholder.com/200" alt="" /></div>,
+    header: <div className="max-h-[190px] overflow-hidden"><img className="mx-auto hidden md:block" src="https://via.placeholder.com/200" alt="" />
+    <img className="mx-auto block md:hidden" src="https://via.placeholder.com/500x200" alt="" />
+    </div>,
     className: "md:col-span-1",
     icon: <IconFileBroken className="h-4 w-4 text-neutral-500" />,
   },
   {
     title: "Inspire and Be Inspired",
     description: "Be a source of inspiration. Share your journey and find inspiration in others.",
-    header: <div className="max-h-[190px] overflow-hidden"><img className="mx-auto" src="https://via.placeholder.com/200" alt="" /></div>,
+    header: <div className="max-h-[190px] overflow-hidden"><img className="mx-auto hidden md:block" src="https://via.placeholder.com/200" alt="" />
+    <img className="mx-auto block md:hidden" src="https://via.placeholder.com/500x200" alt="" /></div>,
     className: "md:col-span-1",
     icon: <IconSignature className="h-4 w-4 text-neutral-500" />,
   },

@@ -28,7 +28,7 @@ const ScrollButton = () => {
     };
   
   return (
-    <div>
+    <div className='z-10'>
        <button
           className="fixed bottom-8 right-8 p-3 rounded-full text-gray-300 hover:text-white shadow-md focus:outline-none"
           onClick={scrollToTop}
