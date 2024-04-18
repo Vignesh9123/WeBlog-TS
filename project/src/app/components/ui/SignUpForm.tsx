@@ -10,27 +10,68 @@ import {
 } from "@tabler/icons-react";
 import Link from "next/link";
 import { useForm } from 'react-hook-form';
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { useRouter } from "next/navigation";
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
 import Loading from "./loading-spinner";
+import { TiTick } from "react-icons/ti";
 interface UserInput {
   email: string;
   username: string;
+  regexMisMatch:string;
   password: string;
   confirmpassword:string;
+  usernameExists:string;
 }
 export function SignUpForm() {
-  const {register,handleSubmit, watch,formState:{errors,isSubmitting},setError} = useForm<UserInput>()
+  const [username,setUsername] = useState('')
+  const [goodUsername, setgoodUsername] = useState(false)
+  const {register,handleSubmit, watch,formState:{errors,isSubmitting},setError,clearErrors} = useForm<UserInput>()
   const [loading,setLoading] = useState(false)
   const router = useRouter()
   
+  useEffect(() => {
+    (async()=>{
+      const response = await axios.get(`/api/user/auth/username-exists-check?username=${username}`)
+      if(username.length < 4 && username.length>0){
+        setgoodUsername(false)
+        clearErrors("regexMisMatch")
+        setError("username",{message:"Username must be atleast four characters long"})
+        return
+      }
+      const regex = /[^a-zA-Z0-9@_]/;
+      if (regex.test(username)){
+        setgoodUsername(false)
+        clearErrors("usernameExists")
+        clearErrors("username")
+
+      return setError("regexMisMatch",{type:"regexMisMatch",message:"Username can only contain Alphabets,Numbers, @ and _"},{ shouldFocus: true })
+      }
+      if(username.length==0){
+        setgoodUsername(false)
+        clearErrors("regexMisMatch")
+        clearErrors("username")
+        clearErrors("usernameExists")
+      }
+      if(!response.data.success){
+        setgoodUsername(false)
+        clearErrors("username")
+        clearErrors("regexMisMatch")
+      return setError("usernameExists",{type:"custom", message:"Username already taken"})}
+      if(username.length>=4 && !regex.test(username)){
+      setgoodUsername(true)
+      clearErrors("regexMisMatch")
+      clearErrors("usernameExists")
+      clearErrors("username")
+      }
+    }
+    )();
+
+  }, [username])
+  
 
   const onSubmit = async(data:UserInput) => {
-   
-    // Handle form submission here (e.g., send data to server)
-    console.log(data);
    try {
     setLoading(true)
     if(data.password != data.confirmpassword){
@@ -60,9 +101,14 @@ export function SignUpForm() {
        
         <LabelInputContainer className="mb-4">
           <Label htmlFor="username">Username</Label>
-          <Input id="username"  {...register("username" ,{required:{value:true, message:"Username is required"}, 
-            minLength:{value:4, message: `Username must be atleast 4 characters long`}})} placeholder="This will be your public name" type="text" />
-        {errors.username? <div className='text-sm text-yellow-500 font-bold'>{errors.username.message}</div>:""}
+          <Input id="username" value={username}  {...register("username" ,{required:{value:true, message:"Username is required"}, 
+            minLength:{value:4, message: `Username must be atleast 4 characters long`}})} placeholder="This will be your public name" type="text" onChange={(e)=>setUsername(e.target.value)} />
+        {errors.username? <div className={"text-sm text-yellow-500 font-bold"}>{errors.username.message}</div>:""}
+        {errors.regexMisMatch && <div className="text-xs text-red-500 font-bold">{errors.regexMisMatch.message}
+        </div>}
+        {goodUsername && <div className="text-green-400 text-sm flex items-center">
+          <TiTick color="green"/><div>Your username is unique</div></div>}
+          {errors.usernameExists? <div className={"text-sm text-yellow-500 font-bold"}>{errors.usernameExists.message}</div>:""}
         </LabelInputContainer>
         <LabelInputContainer className="mb-4">
           <Label htmlFor="email">Email Address</Label>
