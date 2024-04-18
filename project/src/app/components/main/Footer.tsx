@@ -13,10 +13,10 @@ const Footer = () => {
             <FaGithub cursor={"pointer"} size={25}/>
         </div>
         <div className="navs flex items-center gap-5">
-            <Link href={"/"}><div className="text-gray-400 underline cursor-pointer text-md">Home</div></Link>
-            <Link href={"/"}><div className="text-gray-400 underline cursor-pointer text-md">About</div></Link>
-            <Link href={"/"}><div className="text-gray-400 underline cursor-pointer text-md">Contact</div></Link>
-            <Link href={"/"}><div className="text-gray-400 underline cursor-pointer text-md">FaQ</div></Link>
+            <Link href={"/"}><div className="text-black dark:text-gray-400 underline cursor-pointer text-md">Home</div></Link>
+            <Link href={"/"}><div className="text-black dark:text-gray-400 underline cursor-pointer text-md">About</div></Link>
+            <Link href={"/"}><div className="text-black dark:text-gray-400 underline cursor-pointer text-md">Contact</div></Link>
+            <Link href={"/"}><div className="text-black dark:text-gray-400 underline cursor-pointer text-md">FaQ</div></Link>
         </div>
         <div className='mb-5'>Created with ❤ by Vignesh</div>
       </div>
