@@ -6,7 +6,7 @@ import Link from 'next/link';
 const Footer = () => {
   return (
     <div>
-      <div className='mt-5 bg-black flex flex-col items-center gap-4'>
+      <div className='mt-5 flex flex-col items-center gap-4'>
         <div className="icons flex gap-5 items-center">
             <TiSocialTwitter cursor={"pointer"} size={25}/>
             <SlSocialInstagram cursor={"pointer"} size={25}/>

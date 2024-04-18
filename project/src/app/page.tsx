@@ -12,6 +12,26 @@ import { Toaster } from "react-hot-toast";
 import { BentoGridSecondDemo } from './components/main/Grid'
 import { InfiniteMovingCardsDemo } from './components/main/InfiniteScroll'
 import { useMountEffect } from 'primereact/hooks';
+import { MoonIcon, SunIcon } from "@radix-ui/react-icons"
+import { useTheme } from "next-themes"
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
+import { Button } from "@/components/ui/button"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 import { Messages } from 'primereact/messages';
 export default function AuroraBackgroundDemo() {
   const [isVisible, setIsVisible] = useState(false);
@@ -74,19 +94,9 @@ export default function AuroraBackgroundDemo() {
   ];
   return (<>
    <Messages ref={msgs} />
-    <AuroraBackground>
-      <motion.div
-        initial={{ opacity: 0.0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{
-          delay: 0.3,
-          duration: 0.8,
-          ease: "easeInOut",
-        }}
-        className="relative flex flex-col gap-4 items-center justify-center px-4"
-      >
+   
       <Toaster/>
-    <div className="flex flex-col items-center justify-center h-[25rem]  ">
+    <div className="flex flex-col items-center justify-center min-h-screen  ">
       <p className="text-neutral-600 dark:text-neutral-200 text-xs sm:text-base  ">
       Explore insightful articles written by our talented writers
       </p>
@@ -95,9 +105,22 @@ export default function AuroraBackgroundDemo() {
       The best part is you can write great articles too.
       </p>
       <div className="mt-5 flex flex-col md:flex-row space-y-4 md:space-y-0 space-x-0 md:space-x-4">
-        {signedIn?<button onClick={signOutHandler} className="w-40 h-10 rounded-xl bg-white text-black border border-black  text-sm">
-          Sign out
-        </button>:<><Link href={"/#content"}>
+        {signedIn?<AlertDialog>
+      <AlertDialogTrigger asChild>
+        <Button>Sign out</Button>
+      </AlertDialogTrigger>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>Do you want to sign out?</AlertDialogTitle>
+         
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel  onClick={()=>console.log("Cancel")
+          }>Cancel</AlertDialogCancel>
+          <AlertDialogAction onClick={signOutHandler}>Yes</AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>:<><Link href={"/#content"}>
         <button className="w-40 h-10 rounded-xl bg-black border dark:border-white border-transparent text-white text-sm">
           Know More
         </button></Link>
@@ -109,9 +132,9 @@ export default function AuroraBackgroundDemo() {
       </div>
     </div>
 
-      </motion.div>
-    </AuroraBackground>
+
     <div className="w-[98vw] mx-auto h-[1px] bg-gray-500"></div>
+    
     <div id="content"><BentoGridSecondDemo/>< InfiniteMovingCardsDemo/></div>
     <div className="w-[98vw] mx-auto h-[1px] bg-gray-500"></div>
     {isVisible && (
@@ -120,4 +143,30 @@ export default function AuroraBackgroundDemo() {
     </>
 
   );
+}
+export function ModeToggle() {
+  const { setTheme } = useTheme()
+ 
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="outline" className="absolute right-0" size="icon">
+          <SunIcon className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+          <MoonIcon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+          <span className="sr-only">Toggle theme</span>
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end">
+        <DropdownMenuItem onClick={() => setTheme("light")}>
+          Light
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => setTheme("dark")}>
+          Dark
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => setTheme("system")}>
+          System
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  )
 }

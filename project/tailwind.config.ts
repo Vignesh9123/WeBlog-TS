@@ -3,24 +3,74 @@ const {
 } = require("tailwindcss/lib/util/flattenColorPalette");
 import type { Config } from "tailwindcss";
 
-const config: Config = {
+const config:any = {
+  darkMode: ["class"],
   content: [
-    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
-  ],
+    './pages/**/*.{ts,tsx}',
+    './components/**/*.{ts,tsx}',
+    './app/**/*.{ts,tsx}',
+    './src/**/*.{ts,tsx}',
+	],
+  prefix: "",
   theme: {
-    extend: {
-      animation: {
-        'aurora': "aurora 60s linear infinite",
-        'text-slide': 'text-slide 12.5s cubic-bezier(0.83, 0, 0.17, 1) infinite',
-        scroll:
-        "scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite",
+    container: {
+      center: true,
+      padding: "2rem",
+      screens: {
+        "2xl": "1400px",
       },
-      boxShadow: {
-        input: `0px 2px 3px -1px rgba(0,0,0,0.1), 0px 1px 0px 0px rgba(25,28,33,0.02), 0px 0px 0px 1px rgba(25,28,33,0.08)`,
+    },
+    extend: {
+      
+      colors: {
+        border: "hsl(var(--border))",
+        input: "hsl(var(--input))",
+        ring: "hsl(var(--ring))",
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
+        primary: {
+          DEFAULT: "hsl(var(--primary))",
+          foreground: "hsl(var(--primary-foreground))",
+        },
+        secondary: {
+          DEFAULT: "hsl(var(--secondary))",
+          foreground: "hsl(var(--secondary-foreground))",
+        },
+        destructive: {
+          DEFAULT: "hsl(var(--destructive))",
+          foreground: "hsl(var(--destructive-foreground))",
+        },
+        muted: {
+          DEFAULT: "hsl(var(--muted))",
+          foreground: "hsl(var(--muted-foreground))",
+        },
+        accent: {
+          DEFAULT: "hsl(var(--accent))",
+          foreground: "hsl(var(--accent-foreground))",
+        },
+        popover: {
+          DEFAULT: "hsl(var(--popover))",
+          foreground: "hsl(var(--popover-foreground))",
+        },
+        card: {
+          DEFAULT: "hsl(var(--card))",
+          foreground: "hsl(var(--card-foreground))",
+        },
+      },
+      borderRadius: {
+        lg: "var(--radius)",
+        md: "calc(var(--radius) - 2px)",
+        sm: "calc(var(--radius) - 4px)",
       },
       keyframes: {
+        "accordion-down": {
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
+        },
+        "accordion-up": {
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
+        },
         scroll: {
           to: {
             transform: "translate(calc(-50% - 0.5rem))",
@@ -53,25 +103,78 @@ const config: Config = {
           '100%': {
               transform: 'translateY(-83.33%)',
           },
-      },                    
+      },       
+      },
+      animation: {
+        "accordion-down": "accordion-down 0.2s ease-out",
+        "accordion-up": "accordion-up 0.2s ease-out",
+        'aurora': "aurora 60s linear infinite",
+        'text-slide': 'text-slide 12.5s cubic-bezier(0.83, 0, 0.17, 1) infinite',
+        scroll:
+        "scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite",
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
-    },
   },
-  plugins: [addVariablesForColors],
-};
+  plugins: [require("tailwindcss-animate"),addVariablesForColors],
+}}
 function addVariablesForColors({ addBase, theme }: any) {
   let allColors = flattenColorPalette(theme("colors"));
   let newVars = Object.fromEntries(
-    Object.entries(allColors).map(([key, val]) => [`--${key}`, val])
+  Object.entries(allColors).map(([key, val]) => [`--${key}`, val])
   );
- 
+  
   addBase({
-    ":root": newVars,
+  ":root": newVars,
   });
-}
-export default config;
+  }
+  
+export default config
+// },
+// keyframes: {
+//   scroll: {
+//     to: {
+//       transform: "translate(calc(-50% - 0.5rem))",
+//     },
+//   },
+//   aurora: {
+//     from: {
+//       backgroundPosition: "50% 50%, 50% 50%",
+//     },
+//     to: {
+//       backgroundPosition: "350% 50%, 350% 50%",
+//     },
+//   },
+//   'text-slide': {
+//     '0%, 16%': {
+//         transform: 'translateY(0%)',
+//     },
+//     '20%, 36%': {
+//         transform: 'translateY(-16.66%)',
+//     },
+//     '40%, 56%': {
+//         transform: 'translateY(-33.33%)',
+//     },
+//     '60%, 76%': {
+//         transform: 'translateY(-50%)',
+//     },
+//     '80%, 96%': {
+//         transform: 'translateY(-66.66%)',
+//     },
+//     '100%': {
+//         transform: 'translateY(-83.33%)',
+//     },
+// },                    
+// },
+// backgroundImage: {
+//   "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
+//   "gradient-conic":
+//     "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+// },
+// },
+// },
+// plugins: [addVariablesForColors],
+// };

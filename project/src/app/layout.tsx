@@ -5,7 +5,8 @@ import { FloatingNavbar } from "./components/main/Navbar";
 import Footer from "./components/main/Footer";
 import { PrimeReactProvider, PrimeReactContext } from 'primereact/api';
 import "primereact/resources/themes/lara-dark-blue/theme.css";
-
+import { ThemeProvider } from "@/components/theme-provider"
+import { ModeToggle } from "./page";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -22,9 +23,17 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
       <PrimeReactProvider>
+      <ThemeProvider
+            attribute="class"
+            defaultTheme="dark"
+            enableSystem
+            
+          >
      <FloatingNavbar/>
+     <ModeToggle/>
         {children}
         <Footer/>
+        </ThemeProvider>
         </PrimeReactProvider>
         </body>
     </html>
