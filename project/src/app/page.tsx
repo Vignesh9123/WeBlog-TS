@@ -36,7 +36,7 @@ import { Messages } from 'primereact/messages';
 export default function AuroraBackgroundDemo() {
   const [isVisible, setIsVisible] = useState(false);
   const [signedIn, setSignedIn] = useState(false)
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
   const msgs = useRef<Messages>(null);
 
   useMountEffect(() => {
@@ -45,7 +45,7 @@ export default function AuroraBackgroundDemo() {
           severity: 'info',sticky: true,content: (
               <React.Fragment>
                   <img alt="logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTsnwAJtBWl41ZIGBQ1HESUMATk2xSl5n9PYbyP160FSuERbpDcRz5kuT0TpizPjXCfoXQ&usqp=CAU" width="32" />
-                  <div className="ml-2">This is just a learning implementation project.</div>
+                  <div className="text-black dark:text-blue-500 ml-2">This is just a learning implementation project.</div>
               </React.Fragment>
           )
       });
@@ -64,8 +64,10 @@ export default function AuroraBackgroundDemo() {
     };
 
     const userState = async()=>{
+      setLoading(true)
         let state = await getUserState()
         setSignedIn(state)
+        setLoading(false)
     }
     userState()
     // Add event listener when component mounts
@@ -105,7 +107,7 @@ export default function AuroraBackgroundDemo() {
       The best part is you can write great articles too.
       </p>
       <div className="mt-5 flex flex-col md:flex-row space-y-4 md:space-y-0 space-x-0 md:space-x-4">
-        {signedIn?<AlertDialog>
+       {!loading && <>{signedIn?<AlertDialog>
       <AlertDialogTrigger asChild>
         <Button>Sign out</Button>
       </AlertDialogTrigger>
@@ -128,7 +130,7 @@ export default function AuroraBackgroundDemo() {
           Signup
         </button>
         </Link></>
-        }
+        }</>}
       </div>
     </div>
 
@@ -143,30 +145,4 @@ export default function AuroraBackgroundDemo() {
     </>
 
   );
-}
-export function ModeToggle() {
-  const { setTheme } = useTheme()
- 
-  return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="outline" className="absolute right-0" size="icon">
-          <SunIcon className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-          <MoonIcon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-          <span className="sr-only">Toggle theme</span>
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={() => setTheme("light")}>
-          Light
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("dark")}>
-          Dark
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("system")}>
-          System
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
-  )
 }

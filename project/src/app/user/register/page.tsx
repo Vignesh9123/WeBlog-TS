@@ -31,7 +31,7 @@ export default function TabsDemo() {
       title: "Login",
       value: "login",
       content: (
-        <div className="w-full relative min-h-[40rem] my-auto p-5 rounded-2xl font-bold text-black bg-white">
+        <div className="w-full relative min-h-[40rem] my-auto p-5 rounded-2xl font-bold text-black bg-black dark:bg-white">
          
          <LoginForm />
         </div>

@@ -30,7 +30,7 @@ const ScrollButton = () => {
   return (
     <div className='z-10'>
        <button
-          className="fixed bottom-8 right-8 p-3 rounded-full text-gray-300 hover:text-white shadow-md focus:outline-none"
+          className="fixed bottom-8 right-8 p-3 rounded-full duration-200 text-black dark:text-gray-300 hover:text-gray-400 dark:hover:text-white shadow-md focus:outline-none"
           onClick={scrollToTop}
         >
           <FaArrowCircleUp size={40}/>
