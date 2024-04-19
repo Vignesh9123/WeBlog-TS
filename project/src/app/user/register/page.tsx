@@ -41,7 +41,7 @@ export default function TabsDemo() {
       title: "Sign Up",
       value: "signup",
       content: (
-        <div className="w-full relative min-h-full p-5 rounded-2xl font-bold text-black bg-white">
+        <div className="w-full relative min-h-full p-5 rounded-2xl font-bold text-black bg-black dark:bg-white">
           <SignUpForm/>
         </div>
       ),
