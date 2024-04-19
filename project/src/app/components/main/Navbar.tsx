@@ -1,8 +1,16 @@
 "use client";
-import React from "react";
+import React, { useEffect,useState } from "react";
 import { FloatingNav } from "../ui/floating-navbar";
 import { usePathname } from "next/navigation";
+import { getUserState } from "@/helpers/getUserfromToken";
 export function FloatingNavbar() {
+  const [loggedIn, setLoggedIn] = useState(false)
+  useEffect(()=>{
+    (async()=>{
+      const logg = await getUserState()
+      setLoggedIn(logg)
+    })()
+  })
   const pathname = usePathname()
   const navItems = [
     {
@@ -14,8 +22,8 @@ export function FloatingNavbar() {
       link: "/blogs",
     },
     {
-      name: "Login",
-      link: "/user/register",
+      name: loggedIn?"Profile":"Login",
+      link: loggedIn?"/user/profile":"/user/register",
        
     },
   ];
