@@ -9,7 +9,7 @@ export async function middleware(request: NextRequest) {
     if(!publicPath && !loggedIn){
   return NextResponse.redirect(new URL('/user/register', request.url))}
   if(publicPath && loggedIn){
-    return NextResponse.rewrite(new URL('/user/profile', request.url))
+    return NextResponse.redirect(new URL('/user/profile', request.url))
   }
 }
  
