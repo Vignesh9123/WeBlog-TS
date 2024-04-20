@@ -12,10 +12,10 @@ import Link from "next/link";
 import { useForm } from 'react-hook-form';
 import { useState,useEffect } from "react";
 import { useRouter } from "next/navigation";
-import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
 import Loading from "./loading-spinner";
 import { TiTick } from "react-icons/ti";
+import { useToast } from "@/components/ui/use-toast";
 interface UserInput {
   email: string;
   username: string;
@@ -25,6 +25,7 @@ interface UserInput {
   usernameExists:string;
 }
 export function SignUpForm() {
+  const {toast} = useToast()
   const [username,setUsername] = useState('')
   const [goodUsername, setgoodUsername] = useState(false)
   const {register,handleSubmit, watch,formState:{errors,isSubmitting},setError,clearErrors} = useForm<UserInput>()
@@ -81,11 +82,11 @@ export function SignUpForm() {
     }
      const response = await axios.post("/api/user/auth/signup",data)
      setLoading(false)
-     toast.success(response.data.message) 
+     toast({title:"Signed Up Successfully",description:"Please login to continue"}) 
      location.reload()
     } catch (error:any) {
       setLoading(false)
-      toast.error(error.response.data.message || "An error occured please try again")
+      toast({variant:"destructive",title:"An error occured",description:error.response.data.message || "An error occured please try again"})
    }
  
   };

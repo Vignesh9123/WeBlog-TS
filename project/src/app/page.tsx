@@ -8,7 +8,6 @@ import ScrollButton from "./components/main/scrolltotopbutton";
 import Link from "next/link";
 import { getUserState } from "@/helpers/getUserfromToken";
 import signOutHandler from "@/helpers/signOutHandler";
-import { Toaster } from "react-hot-toast";
 import { BentoGridSecondDemo } from './components/main/Grid'
 import { InfiniteMovingCardsDemo } from './components/main/InfiniteScroll'
 import { useMountEffect } from 'primereact/hooks';
@@ -97,7 +96,6 @@ export default function AuroraBackgroundDemo() {
   return (<>
    <Messages ref={msgs} />
    
-      <Toaster/>
     <div className="flex flex-col items-center justify-center min-h-screen  ">
       <p className="text-neutral-600 dark:text-neutral-200 text-xs sm:text-base  ">
       Explore insightful articles written by our talented writers

@@ -6,7 +6,6 @@ import { SignUpForm } from "../../components/ui/SignUpForm";
 import { LoginForm } from "../../components/ui/LoginForm";
 import { FloatingNavbar } from "@/app/components/main/sm/Navbar";
 import { useEffect,useState } from "react";
-import { Toaster } from "react-hot-toast";
 export default function TabsDemo() {
   const [isVisible, setIsVisible] = useState(true)
   useEffect(() => {
@@ -53,24 +52,7 @@ export default function TabsDemo() {
     <>
     {isVisible && <FloatingNavbar/>}
     <div className="h-[20rem] md:h-[40rem] [perspective:1000px] relative b flex flex-col max-w-5xl mx-auto w-full  items-start justify-start mt-10 mb-52">
-    <Toaster toastOptions={{
-    success: {
-      style: {
-        position:"relative",
-        top:"30vh",
-        background: 'green',
-        color:"white"
-      },
-    },
-    error: {
-      style: {
-        position:"relative",
-        top:"30vh",
-        background: 'red',
-        color:"white"
-      },
-    },
-  }} position="top-center"/>
+   
       <Tabs tabs={tabs} />
     </div>
     </>

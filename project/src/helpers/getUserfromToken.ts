@@ -17,6 +17,6 @@ export async function getUserFullDetails(){
     }
     const decodedToken = jwt.verify(token, process.env.TOKEN_SECRET!) as JwtPayload
     const id = decodedToken.id;
-    const user = await User.findById(id).select("-password -isVerfied")
+    const user = await User.findById(id).select("-password -isVerified")
     return user;
 }

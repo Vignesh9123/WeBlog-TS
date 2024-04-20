@@ -11,17 +11,17 @@ import {
 import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
 import { useForm } from 'react-hook-form';
 import Loading from "./loading-spinner";
-
+import { useToast } from "@/components/ui/use-toast";
 interface UserInput {
   email: string;
   password: string;
  
 }
 export function LoginForm() {
+  const {toast}= useToast()
   const {register,handleSubmit, watch,formState:{errors,isSubmitting},setError} = useForm<UserInput>()
   const [loading,setLoading] = useState(false)
   const router = useRouter()
@@ -34,17 +34,15 @@ export function LoginForm() {
      try {
       const response = await axios.post("/api/user/auth/login",data)
       setLoading(false)
-      toast.success(response.data.message)
+      toast({title:response.data.message})
       // setLoggedIn(true)
       // await awaitDelay(2)
       router.push("/")
      } catch (error:any) {
       setLoading(false)
-      toast.error(error.response.data.message || "An error from our side, please try again")
+      toast({variant:"destructive",title:"Try again",description:error.response.data.message || "An error from our side, please try again"})
      }
-     
-      // Reset form fields
-  }
+       }
   return (
     <div className="max-w-md w-full mx-auto my-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black">
     
