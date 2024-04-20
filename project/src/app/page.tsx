@@ -100,7 +100,8 @@ export default function AuroraBackgroundDemo() {
       <p className="text-neutral-600 dark:text-neutral-200 text-xs sm:text-base  ">
       Explore insightful articles written by our talented writers
       </p>
-      <TypewriterEffectSmooth words={words} />
+      <TypewriterEffectSmooth className="hidden md:flex" words={words} />
+      <h1 className="md:hidden text-2xl font-bold m-3">Write your content on <span className="text-blue-500">WeBlog</span></h1>
       <p className="text-neutral-600 font-bold dark:text-neutral-200 text-xs sm:text-base  ">
       The best part is you can write great articles too.
       </p>
