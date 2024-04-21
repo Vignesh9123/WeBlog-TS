@@ -1,11 +1,10 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
-import { getUserState } from './helpers/getUserfromToken'
 // This function can be marked `async` if using `await` inside
 export async function middleware(request: NextRequest) {
     const pathname = request.nextUrl.pathname
     const publicPath = pathname == "/"|| pathname == "/user/register"
-    const loggedIn = await getUserState()
+    const loggedIn = request.cookies.has("token")    
     if(!publicPath && !loggedIn){
   return NextResponse.redirect(new URL('/user/register', request.url))}
   if(publicPath && loggedIn){
